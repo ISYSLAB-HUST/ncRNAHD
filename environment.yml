@@ -1,4 +1,4 @@
-name: ncrnahd
+name: ncRNAHD
 channels:
   - pytorch
   - conda-forge
@@ -12,6 +12,7 @@ dependencies:
   - scikit-learn
   - matplotlib
   - jupyter
+  - faiss-cpu
   - pip
   - pip:
       - biopython
