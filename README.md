@@ -1,8 +1,3 @@
-我看了一下，File Structure 部分看起来是正常的。可能你觉得奇怪的地方是格式问题？让我重新整理一下：
-
-## 修正后的 README.md
-
-```markdown
 # ncRNAHD: Non-coding RNA Homolog Detection
 
 ncRNAHD is a tool for detecting homologous non-coding RNA sequences using deep learning embeddings and efficient similarity search.
