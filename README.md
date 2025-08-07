@@ -63,11 +63,15 @@ bash msa/setup_rmsa.sh
 # Replace with custom rMSA.pl
 bash msa/replace_rmsa.sh
 
-# Generate MSA (specify the candidate file for your query)
+# Generate MSA (replace "5kh8" with your actual sequence ID)
 cd rMSA
-perl rMSA.pl your_query.fasta -db1=../results/your_sequence_id.fasta
+# 1. Format the candidate database (required)
+database/script/makeblastdb -in ../results/5kh8.fasta -parse_seqids -hash_index -dbtype nucl
+# 2. Generate MSA
+perl rMSA.pl your_query.fasta -db1=../results/5kh8.fasta
 
-# Example: if your query sequence ID is "5kh8"
+# Complete example:
+database/script/makeblastdb -in ../results/5kh8.fasta -parse_seqids -hash_index -dbtype nucl
 perl rMSA.pl query.fasta -db1=../results/5kh8.fasta
 ```
 
@@ -76,9 +80,12 @@ perl rMSA.pl query.fasta -db1=../results/5kh8.fasta
 # Setup trRosettaRNA2
 bash msa/setup_trrosetta.sh
 
-# Generate MSA
+# Generate MSA using ncRNAHD candidates as database
 cd trRosettaRNA2
-bash scripts/search_MSA.sh your_query.fasta
+bash scripts/search_MSA.sh your_query.fasta output_msa_dir ../results/your_sequence_id.fasta 4
+
+# Example: if your query sequence ID is "5kh8"
+bash scripts/search_MSA.sh query.fasta msa_results ../results/5kh8.fasta 8
 ```
 
 ## File Structure
