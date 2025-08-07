@@ -8,8 +8,7 @@ ncRNAHD (Non-coding RNA Homolog Detection) is a deep learning-based tool for eff
 - **Efficient Similarity Search**: Employs FAISS indexing with whitening transformation for fast homolog detection
 - **Large-scale Processing**: Capable of handling millions of RNA sequences
 - **Flexible Query Interface**: Supports batch processing and customizable search parameters
-
-## Installation
+- ## Installation
 
 ### Prerequisites
 
@@ -20,40 +19,57 @@ ncRNAHD (Non-coding RNA Homolog Detection) is a deep learning-based tool for eff
 ### Environment Setup
 
 1. Clone the repository:
-
-```bash
 git clone https://github.com/ISYSLAB-HUST/ncRNAHD.git
 cd ncRNAHD
-
-
-**第二部分：**
-```markdown
+2. Create and activate conda environment:
+conda env create -f environment.yml
+conda activate ncRNAHD
 ## Quick Start
 
 ### 1. Download and Process Data
 
 Download RNACentral database and preprocess sequences:
-
-```bash
 # Download RNACentral data
 bash scripts/download_data.sh
 
 # Process sequences (filter by length and truncate)
 python scripts/process_sequences.py
+### 2. Generate Embeddings
 
+Generate ncRNABert embeddings for the database:
+python scripts/generate_embeddings.py
+### 3. Build Search Index
 
-**第三部分：**
-```markdown
+Create FAISS index with whitening transformation:
+python scripts/build_index.py
+### 4. Search for Homologs
+
+Search for homologs of query sequences:
+# Basic usage
+python scripts/search_homologs.py
+
+# Custom query file
+python scripts/search_homologs.py --query_fasta your_queries.fasta
+
+# Specify output directory and top-k results
+python scripts/search_homologs.py --query_fasta queries.fasta --output_dir results --topk 50000
 ## Usage Examples
 
 ### Example 1: Default Search
-
-```bash
 python scripts/search_homologs.py
+This will process all sequences in `query.fasta` and return top 100,000 similar sequences.
 
-
-**第四部分：**
-```markdown
+### Example 2: Custom Parameters
+python scripts/search_homologs.py \
+    --query_fasta my_sequences.fasta \
+    --output_dir homolog_results \
+    --topk 10000 \
+    --batch_size 5
+### Example 3: Large-scale Batch Processing
+python scripts/search_homologs.py \
+    --query_fasta large_query_set.fasta \
+    --batch_size 10 \
+    --topk 50000
 ## Command Line Options
 
 ### search_homologs.py
@@ -67,7 +83,6 @@ python scripts/search_homologs.py
 | `--output_dir` | Output directory | `candidates` |
 | `--batch_size` | Processing batch size | All sequences |
 | `--topk` | Number of similar sequences to return | 100000 |
-
 ## File Descriptions
 
 ### Scripts
@@ -85,7 +100,6 @@ python scripts/search_homologs.py
 - **`trained_index_NoZscoreWhiteIndexFlatIP.faiss`**: FAISS search index
 - **`whiten_params_NoZscoreWhiteIndexFlatIP.npz`**: Whitening transformation parameters
 - **`candidates_*.fasta`**: Homolog candidates for each query sequence
-
 ## Multiple Sequence Alignment (MSA)
 
 For downstream MSA analysis, you can use:
@@ -108,7 +122,17 @@ Core dependencies are managed through conda:
 - biopython
 - ncRNABert
 - faiss (via pip as faiss-gpu or faiss-cpu)
-
 ## Citation
 
 If you use ncRNAHD in your research, please cite:
+[Your paper citation will go here]
+## Contact
+
+For questions or issues, please contact:
+
+- GitHub: [@elkerist](https://github.com/elkerist)
+- Repository: [ISYSLAB-HUST/ncRNAHD](https://github.com/ISYSLAB-HUST/ncRNAHD)
+
+## License
+
+[Add your license information here]
