@@ -1,3 +1,8 @@
+我看了一下，File Structure 部分看起来是正常的。可能你觉得奇怪的地方是格式问题？让我重新整理一下：
+
+## 修正后的 README.md
+
+```markdown
 # ncRNAHD: Non-coding RNA Homolog Detection
 
 ncRNAHD is a tool for detecting homologous non-coding RNA sequences using deep learning embeddings and efficient similarity search.
@@ -76,30 +81,44 @@ perl rMSA.pl query.fasta -db1=../results/5kh8.fasta
 # Setup trRosettaRNA2
 bash msa/setup_trrosetta.sh
 
-# Generate MSA using ncRNAHD candidates as database
+# Generate MSA
 cd trRosettaRNA2
-bash scripts/search_MSA.sh your_query.fasta output_msa_dir ../results/your_sequence_id.fasta 4
-
-# Example: if your query sequence ID is "5kh8"
-bash scripts/search_MSA.sh query.fasta msa_results ../results/5kh8.fasta 8
-```
-
-Note: Both MSA methods use the candidate sequences found by ncRNAHD as the search database.
+bash scripts/search_MSA.sh your_query.fasta
 ```
 
 ## File Structure
 
 ```
 ncRNAHD/
-├── homolog_search.py   # Main search tool
-├── setup/              # Data download and preprocessing
-├── embedding/          # Embedding generation
-├── indexing/           # FAISS index building
-├── search/             # Search components
-├── msa/               # MSA generation tools
-├── data/              # Generated data files
-├── results/           # Search results
-└── examples/          # Example query files
+├── homolog_search.py          # Main search tool
+├── environment.yml            # Conda environment configuration
+├── README.md                  # This file
+├── setup/                     # Data download and preprocessing scripts
+│   ├── download_data.sh
+│   └── process_rna_sequences.py
+├── embedding/                 # Embedding generation
+│   └── generate_embeddings.py
+├── indexing/                  # FAISS index building
+│   └── build_faiss_index.py
+├── search/                    # Search components
+│   ├── embedding_generator.py
+│   └── faiss_searcher.py
+├── msa/                       # MSA generation tools
+│   ├── setup_rmsa.sh
+│   ├── setup_trrosetta.sh
+│   ├── replace_rmsa.sh
+│   └── rMSA.pl
+├── data/                      # Generated data files (created during setup)
+│   ├── rnacentral_active.fasta
+│   ├── rnacentral_active_processed.fasta
+│   ├── rna_embeddings.npy
+│   ├── trained_index.faiss
+│   ├── whiten_params.npz
+│   └── sequence_index.json
+├── results/                   # Search results (created during search)
+│   └── {sequence_id}.fasta    # Candidate sequences for each query
+└── examples/                  # Example query files
+    └── query.fasta
 ```
 
 ## Requirements
