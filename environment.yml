@@ -1,0 +1,21 @@
+name: ncrnahd
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+  - bioconda
+dependencies:
+  - python=3.12
+  - pytorch
+  - numpy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - jupyter
+  - pip
+  - pip:
+      - biopython
+      - einops
+      - ncrnabert
+      - rotary-embedding-torch
+      - sympy
