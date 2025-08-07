@@ -24,6 +24,7 @@ Input:
     seq.fasta - single sequence query fasta
     db1       - (colon separated list of) blastn format sequence database(s)
                 where only the watson strand will be searched
+                For ncRNAHD results, use: ../results/seqid.fasta
     cpu       - number of threads. default 1.
                 if 0, set number of threads according to sequence length.
     tmpdir    - temporary folder
@@ -36,6 +37,9 @@ Input:
 		1 - (default) heuristic to balance accuracy and time for
 		    long sequences
 		2 - aggresive heuristic for all sequences
+
+Example with ncRNAHD results:
+    perl rMSA.pl query.fasta -db1=../results/8uzj.fasta
 EOF
 ;
 
