@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 获取脚本所在目录的绝对路径
+# Get the absolute path of the directory where the script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
