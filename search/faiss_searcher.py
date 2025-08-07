@@ -140,7 +140,8 @@ class OptimizedSearcher:
             print(f"Sequence retrieval completed, time taken: {seq_time:.2f} seconds")
             
             # Save to file
-            output_fasta_path = os.path.join(output_dir, f"candidates{identifier}.fasta")
+            seq_id = identifier.split('_', 2)[2] if '_' in identifier else identifier
+            output_fasta_path = os.path.join(output_dir, f"{seq_id}.fasta")
             with open(output_fasta_path, "w") as output_handle:
                 for seq_data in sequences:
                     output_handle.write(seq_data + "\n")
@@ -156,3 +157,4 @@ class OptimizedSearcher:
             self.fasta_mmap.close()
         if hasattr(self, 'fasta_file'):
             self.fasta_file.close()
+
