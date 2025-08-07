@@ -63,9 +63,12 @@ bash msa/setup_rmsa.sh
 # Replace with custom rMSA.pl
 bash msa/replace_rmsa.sh
 
-# Generate MSA (use detected homologs as input)
+# Generate MSA (specify the candidate file for your query)
 cd rMSA
-perl rMSA.pl -i ../results/candidates_1_your_query.fasta -o output_msa
+perl rMSA.pl your_query.fasta -db1=../results/your_sequence_id.fasta
+
+# Example: if your query sequence ID is "5kh8"
+perl rMSA.pl query.fasta -db1=../results/5kh8.fasta
 ```
 
 ### Option 2: Using trRosettaRNA2
@@ -73,9 +76,15 @@ perl rMSA.pl -i ../results/candidates_1_your_query.fasta -o output_msa
 # Setup trRosettaRNA2
 bash msa/setup_trrosetta.sh
 
-# Generate MSA
+# Generate MSA using ncRNAHD candidates as database
 cd trRosettaRNA2
-bash scripts/search_MSA.sh your_query.fasta
+bash scripts/search_MSA.sh your_query.fasta output_msa_dir ../results/your_sequence_id.fasta 4
+
+# Example: if your query sequence ID is "5kh8"
+bash scripts/search_MSA.sh query.fasta msa_results ../results/5kh8.fasta 8
+```
+
+Note: Both MSA methods use the candidate sequences found by ncRNAHD as the search database.
 ```
 
 ## File Structure
