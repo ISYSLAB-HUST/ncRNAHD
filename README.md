@@ -42,12 +42,12 @@ python indexing/build_faiss_index.py
 
 ### Basic homolog search
 ```bash
-python search/homolog_search.py --query_fasta examples/query.fasta --output_dir results
+python homolog_search.py --query_fasta examples/query.fasta --output_dir results
 ```
 
 ### Custom parameters
 ```bash
-python search/homolog_search.py \
+python homolog_search.py \
     --query_fasta your_query.fasta \
     --output_dir your_results \
     --topk 50000
@@ -82,14 +82,15 @@ bash scripts/search_MSA.sh your_query.fasta
 
 ```
 ncRNAHD/
-├── setup/           # Data download and preprocessing
-├── embedding/       # Embedding generation
-├── indexing/        # FAISS index building
-├── search/          # Homolog search tools
-├── msa/            # MSA generation tools
-├── data/           # Generated data files
-├── results/        # Search results
-└── examples/       # Example query files
+├── homolog_search.py   # Main search tool
+├── setup/              # Data download and preprocessing
+├── embedding/          # Embedding generation
+├── indexing/           # FAISS index building
+├── search/             # Search components
+├── msa/               # MSA generation tools
+├── data/              # Generated data files
+├── results/           # Search results
+└── examples/          # Example query files
 ```
 
 ## Requirements
