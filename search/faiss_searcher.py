@@ -132,6 +132,9 @@ class OptimizedSearcher:
         
         for identifier, indices in zip(identifiers, indices_list):
             print(f"Processing query {identifier}, getting {len(indices)} sequences...")
+
+            # 从 identifier 中提取 seq_id (格式是 _1_seq_id)
+            seq_id = identifier.split('_', 2)[2] if '_' in identifier else identifier
             
             # Batch get sequences
             seq_start_time = time.time()
@@ -140,7 +143,6 @@ class OptimizedSearcher:
             print(f"Sequence retrieval completed, time taken: {seq_time:.2f} seconds")
             
             # Save to file
-            seq_id = identifier.split('_', 2)[2] if '_' in identifier else identifier
             output_fasta_path = os.path.join(output_dir, f"{seq_id}.fasta")
             with open(output_fasta_path, "w") as output_handle:
                 for seq_data in sequences:
@@ -157,4 +159,5 @@ class OptimizedSearcher:
             self.fasta_mmap.close()
         if hasattr(self, 'fasta_file'):
             self.fasta_file.close()
+
 
