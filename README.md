@@ -50,7 +50,7 @@ python homolog_search.py --query_fasta examples/query.fasta --output_dir results
 python homolog_search.py \
     --query_fasta your_query.fasta \
     --output_dir your_results \
-    --topk 50000
+    --topk 100000
 ```
 
 ## MSA Generation (Optional)
