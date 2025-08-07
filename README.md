@@ -1,113 +1,112 @@
 # ncRNAHD: Non-coding RNA Homolog Detection
 
-ncRNAHD (Non-coding RNA Homolog Detection) is a deep learning-based tool for efficient homolog detection of non-coding RNA sequences. It leverages ncRNABert embeddings and FAISS indexing to enable fast similarity search across large RNA databases.
+ncRNAHD is a tool for detecting homologous non-coding RNA sequences using deep learning embeddings and efficient similarity search.
 
 ## Features
 
-- **Deep Learning Embeddings**: Uses ncRNABert to generate high-quality RNA sequence representations
-- **Efficient Similarity Search**: Employs FAISS indexing with whitening transformation for fast homolog detection
-- **Large-scale Processing**: Capable of handling millions of RNA sequences
-- **Flexible Query Interface**: Supports batch processing and customizable search parameters
+- Deep learning-based RNA sequence embedding using ncRNABert
+- Efficient similarity search with FAISS indexing
+- Large-scale RNA database processing
+- Multiple sequence alignment (MSA) generation support
 
 ## Installation
 
-### Prerequisites
-
-- Python 3.12
-- CUDA-compatible GPU (recommended)
-
-### Environment Setup
-
-1. Clone the repository:
-
+### 1. Clone the repository
 ```bash
-git clone https://github.com/ISYSLAB-HUST/ncRNAHD.git
+git clone https://github.com/ISYSLAB-HUST/ncRNAHD
 cd ncRNAHD
 ```
 
-2. Create and activate conda environment:
-
+### 2. Create conda environment
 ```bash
 conda env create -f environment.yml
 conda activate ncRNAHD
 ```
 
-## Quick Start
-
-### 1. Download and Process Data
-
+### 3. Download and process RNACentral database
 ```bash
-# Download RNACentral data
-bash scripts/download_data.sh
-
-# Process sequences (filter by length and truncate)
-python scripts/process_sequences.py
+bash setup/download_data.sh
 ```
 
-### 2. Generate Embeddings
-
+### 4. Generate embeddings for the database
 ```bash
-python scripts/generate_embeddings.py
+python embedding/generate_embeddings.py
 ```
 
-### 3. Build Search Index
-
+### 5. Build FAISS index
 ```bash
-python scripts/build_index.py
+python indexing/build_faiss_index.py
 ```
 
-### 4. Search for Homologs
+## Usage
 
+### Basic homolog search
 ```bash
-# Basic usage
-python scripts/search_homologs.py
-
-# Custom query file
-python scripts/search_homologs.py --query_fasta your_queries.fasta
-
-# Specify output directory and top-k results
-python scripts/search_homologs.py --query_fasta queries.fasta --output_dir results --topk 50000
+python search/homolog_search.py --query_fasta examples/query.fasta --output_dir results
 ```
 
-## Usage Examples
-
-### Example 1: Default Search
-
+### Custom parameters
 ```bash
-python scripts/search_homologs.py
+python search/homolog_search.py \
+    --query_fasta your_query.fasta \
+    --output_dir your_results \
+    --topk 50000
 ```
 
-### Example 2: Custom Parameters
+## MSA Generation (Optional)
 
+### Option 1: Using rMSA (default)
 ```bash
-python scripts/search_homologs.py \
-    --query_fasta my_sequences.fasta \
-    --output_dir homolog_results \
-    --topk 10000 \
-    --batch_size 5
+# Setup rMSA
+bash msa/setup_rmsa.sh
+
+# Replace with custom rMSA.pl
+bash msa/replace_rmsa.sh
+
+# Generate MSA (use detected homologs as input)
+cd rMSA
+perl rMSA.pl -i ../results/candidates_1_your_query.fasta -o output_msa
 ```
 
-## Command Line Options
+### Option 2: Using trRosettaRNA2
+```bash
+# Setup trRosettaRNA2
+bash msa/setup_trrosetta.sh
 
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `--query_fasta` | Query sequence FASTA file | `query.fasta` |
-| `--output_dir` | Output directory | `candidates` |
-| `--batch_size` | Processing batch size | All sequences |
-| `--topk` | Number of similar sequences to return | 100000 |
+# Generate MSA
+cd trRosettaRNA2
+bash scripts/search_MSA.sh your_query.fasta
+```
 
-## Dependencies
+## File Structure
 
-- pytorch
-- numpy, pandas, scikit-learn
-- biopython
+```
+ncRNAHD/
+├── setup/           # Data download and preprocessing
+├── embedding/       # Embedding generation
+├── indexing/        # FAISS index building
+├── search/          # Homolog search tools
+├── msa/            # MSA generation tools
+├── data/           # Generated data files
+├── results/        # Search results
+└── examples/       # Example query files
+```
+
+## Requirements
+
+- Python 3.12
+- PyTorch
+- BioPython
+- FAISS
 - ncRNABert
-- faiss
+- See `environment.yml` for complete dependencies
 
-## Contact
+## Citation
 
-For questions or issues, please contact:
+If you use ncRNAHD in your research, please cite:
+[Your paper citation here]
 
-- GitHub: [@elkerist](https://github.com/elkerist)
-- Repository: [ISYSLAB-HUST/ncRNAHD](https://github.com/ISYSLAB-HUST/ncRNAHD)
+## License
+
+[Your license here]
 ```
