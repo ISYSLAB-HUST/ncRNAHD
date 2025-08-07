@@ -1,8 +1,3 @@
-"""
-FAISS Searcher Module
-Handles FAISS index loading and similarity search operations
-"""
-
 import numpy as np
 import faiss
 from Bio import SeqIO
@@ -11,12 +6,10 @@ import json
 import mmap
 import time
 
-
 class OptimizedSearcher:
     def __init__(self, trained_index="./data/trained_index.faiss", 
                  fasta_path="./data/rnacentral_active_processed.fasta", 
                  index_path="./data/sequence_index.json"):
-        """Initialize FAISS searcher"""
         # Load FAISS index
         print("Loading FAISS index...")
         start_time = time.time()
@@ -116,12 +109,6 @@ class OptimizedSearcher:
             results[original_pos] = sequence
         
         return results
-    
-    def search_single(self, embedding, topk=100000):
-        """Search for a single query embedding"""
-        embedding = np.array([embedding])  # Convert to batch format
-        distances, indices = self.index.search(embedding, topk)
-        return distances[0], indices[0]  # Return single result
     
     def search_batch(self, batch_embeddings, topk=100000):
         """Batch search - return indices, delay sequence retrieval"""
