@@ -68,11 +68,11 @@ cd rMSA
 # 1. Format the candidate database (required)
 database/script/makeblastdb -in ../results/5kh8.fasta -parse_seqids -hash_index -dbtype nucl
 # 2. Generate MSA
-perl rMSA.pl your_query.fasta -db1=../results/5kh8.fasta
+perl rMSA.pl your_query.fasta -db1=../results/5kh8.fasta -cpu=16
 
 # Complete example:
 database/script/makeblastdb -in ../results/5kh8.fasta -parse_seqids -hash_index -dbtype nucl
-perl rMSA.pl query.fasta -db1=../results/5kh8.fasta
+perl rMSA.pl query.fasta -db1=../results/5kh8.fasta -cpu=16
 ```
 
 ### Option 2: Using trRosettaRNA2
@@ -80,12 +80,12 @@ perl rMSA.pl query.fasta -db1=../results/5kh8.fasta
 # Setup trRosettaRNA2
 bash msa/setup_trrosetta.sh
 
-# Generate MSA using ncRNAHD candidates as database
+# Generate MSA using ncRNAHD candidates as database (adjust CPU cores as needed)
 cd trRosettaRNA2
-bash scripts/search_MSA.sh your_query.fasta output_msa_dir ../results/your_sequence_id.fasta 4
+bash scripts/search_MSA.sh your_query.fasta output_msa_dir ../results/your_sequence_id.fasta 16
 
-# Example: if your query sequence ID is "5kh8"
-bash scripts/search_MSA.sh query.fasta msa_results ../results/5kh8.fasta 8
+# Example: if your query sequence ID is "5kh8", using 16 CPU cores
+bash scripts/search_MSA.sh query.fasta msa_results ../results/5kh8.fasta 16
 ```
 
 ## File Structure
