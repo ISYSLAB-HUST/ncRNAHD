@@ -6,7 +6,7 @@ import numpy as np
 import sys
 
 def process_single_sequence(seq_id, sequence, model, device):
-    """处理单条序列"""
+    """Process single sequence"""
     batch = [(seq_id, sequence)]
     ids, batch_token, lengths = BatchConverter(batch)
     batch_token = batch_token.to(device)
@@ -44,4 +44,5 @@ def main():
     print(f"Completed. Total sequences processed: {total_processed}", flush=True)
 
 if __name__ == "__main__":
+
     main()
