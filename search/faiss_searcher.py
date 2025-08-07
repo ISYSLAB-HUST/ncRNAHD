@@ -133,7 +133,7 @@ class OptimizedSearcher:
         for identifier, indices in zip(identifiers, indices_list):
             print(f"Processing query {identifier}, getting {len(indices)} sequences...")
 
-            # 从 identifier 中提取 seq_id (格式是 _1_seq_id)
+            # Extract seq_id from identifier (format is _1_seq_id)
             seq_id = identifier.split('_', 2)[2] if '_' in identifier else identifier
             
             # Batch get sequences
@@ -159,5 +159,6 @@ class OptimizedSearcher:
             self.fasta_mmap.close()
         if hasattr(self, 'fasta_file'):
             self.fasta_file.close()
+
 
 
