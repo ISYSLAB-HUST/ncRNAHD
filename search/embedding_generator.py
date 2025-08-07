@@ -1,15 +1,9 @@
-"""
-RNA Embedding Generator Module
-Handles ncRNABert embedding generation and whitening transformation
-"""
-
 from ncRNABert.pretrain import load_ncRNABert
 from ncRNABert.utils import BatchConverter
 import torch
 import numpy as np
 import faiss
 from Bio import SeqIO
-
 
 class RNAEmbeddingGenerator:
     def __init__(self, whiten_params_path="./data/whiten_params.npz"):
@@ -26,9 +20,7 @@ class RNAEmbeddingGenerator:
         
         # Load model
         print("Loading ncRNABert model...")
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.model = load_ncRNABert().to(self.device)
-        self.model.eval()  # Set model to evaluation mode
+        self.model = load_ncRNABert()
         print("ncRNABert model loaded")
 
     def apply_whitening(self, embedding, kernel, bias, col_mean):
@@ -48,32 +40,6 @@ class RNAEmbeddingGenerator:
         
         return whitened.squeeze()
 
-    def generate_single_embedding(self, seq_id, sequence):
-        """Generate embedding for a single sequence"""
-        # Prepare single sequence data
-        data = [(seq_id, sequence)]
-        
-        # Convert data format
-        ids, batch_token, lengths = BatchConverter(data)
-        batch_token = batch_token.to(self.device)
-        lengths = lengths.to(self.device)
-        
-        # Get embeddings
-        with torch.no_grad():
-            results = self.model(batch_token, lengths, repr_layers=[24])
-        
-        # Generate sequence representation (through average pooling)
-        token_representations = results["representations"][24]
-        sequence_representation = token_representations[0, :len(sequence)].mean(0)
-        
-        # Convert to numpy array
-        embedding = sequence_representation.cpu().numpy()
-        
-        # Apply whitening transformation
-        whitened_embedding = self.apply_whitening(embedding, self.kernel, self.bias, self.col_mean)
-        
-        return whitened_embedding
-
     def generate_embeddings(self, fasta_file):
         """Generate embeddings from FASTA file"""
         print(f"Generating embeddings from {fasta_file}...")
@@ -88,8 +54,25 @@ class RNAEmbeddingGenerator:
             
             print(f"Processing sequence {num}: {seq_id}")
             
-            # Generate whitened embedding
-            whitened_embedding = self.generate_single_embedding(seq_id, sequence)
+            # Prepare single sequence data
+            data = [(seq_id, sequence)]
+            
+            # Convert data format
+            ids, batch_token, lengths = BatchConverter(data)
+            
+            # Get embeddings
+            with torch.no_grad():
+                results = self.model(batch_token, lengths, repr_layers=[24])
+            
+            # Generate sequence representation (through average pooling)
+            token_representations = results["representations"][24]
+            sequence_representation = token_representations[0, :len(sequence)].mean(0)
+            
+            # Convert to numpy array
+            embedding = sequence_representation.cpu().numpy()
+            
+            # Apply whitening transformation
+            whitened_embedding = self.apply_whitening(embedding, self.kernel, self.bias, self.col_mean)
             
             embeddings.append(whitened_embedding)
             identifiers.append(f"_{num}_{seq_id}")
