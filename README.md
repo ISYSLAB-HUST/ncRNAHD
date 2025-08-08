@@ -6,7 +6,6 @@ ncRNAHD is a tool for detecting homologous non-coding RNA sequences using deep l
 
 - Deep learning-based RNA sequence embedding using ncRNABert
 - Efficient similarity search with FAISS indexing
-- Large-scale RNA database processing
 - Multiple sequence alignment (MSA) generation support
 
 ## Installation
