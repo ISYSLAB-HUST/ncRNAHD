@@ -122,7 +122,7 @@ ncRNAHD/
 └── examples/                  # Example query files
     ├── batch_query.fasta
     ├── 5kh8.fasta
-    └── Homologs_5kh8.a3m
+    └── Homologs_5kh8.fasta
     
 
 
