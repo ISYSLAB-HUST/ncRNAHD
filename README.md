@@ -132,7 +132,6 @@ ncRNAHD/
 - ncRNABert
 - See `environment.yml` for complete dependencies
 
-## Citation
 
 
 [Your license here]
