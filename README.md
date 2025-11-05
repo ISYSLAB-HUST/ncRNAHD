@@ -25,6 +25,7 @@ conda activate ncRNAHD
 ### 3. Download and process RNACentral database
 ```bash
 bash setup/download_data.sh
+python process_rna_sequences.py
 ```
 
 ### 4. Generate embeddings for the database
