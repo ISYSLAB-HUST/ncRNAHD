@@ -133,6 +133,3 @@ ncRNAHD/
 - See `environment.yml` for complete dependencies
 
 
-
-[Your license here]
-```
