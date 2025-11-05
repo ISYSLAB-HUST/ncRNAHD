@@ -42,7 +42,7 @@ python indexing/build_faiss_index.py
 
 ### Basic homolog search
 ```bash
-python homolog_search.py --query_fasta examples/query.fasta --output_dir results
+python homolog_search.py --query_fasta examples/batch_query.fasta --output_dir results
 ```
 
 ### Custom parameters
