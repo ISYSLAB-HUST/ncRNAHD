@@ -134,10 +134,6 @@ ncRNAHD/
 
 ## Citation
 
-If you use ncRNAHD in your research, please cite:
-[Your paper citation here]
-
-## License
 
 [Your license here]
 ```
