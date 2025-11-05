@@ -1,36 +1,36 @@
 #!/bin/bash
 
-# 设置下载目录
+# Set download directory
 DOWNLOAD_DIR="./data"
 mkdir -p $DOWNLOAD_DIR
 cd $DOWNLOAD_DIR
 
-# 下载RNACentral数据文件
-echo "正在下载RNACentral数据文件..."
+# Download RNACentral data file
+echo "Downloading RNACentral data file..."
 wget -O rnacentral_active.fasta.gz https://ftp.ebi.ac.uk/pub/databases/RNAcentral/releases/24.0/sequences/rnacentral_active.fasta.gz
 
-# 检查下载是否成功
+# Check if download was successful
 if [ $? -eq 0 ]; then
-    echo "下载完成！"
+    echo "Download completed!"
 else
-    echo "下载失败！"
+    echo "Download failed!"
     exit 1
 fi
 
-# 解压文件
-echo "正在解压文件..."
+# Extract file
+echo "Extracting file..."
 gunzip rnacentral_active.fasta.gz
 
-# 检查解压是否成功
+# Check if extraction was successful
 if [ $? -eq 0 ]; then
-    echo "解压完成！"
+    echo "Extraction completed!"
 else
-    echo "解压失败！"
+    echo "Extraction failed!"
     exit 1
 fi
 
-# 调用Python脚本处理数据
-echo "正在处理RNA序列..."
+# Call Python script to process data
+echo "Processing RNA sequences..."
 python ../setup/process_rna_sequences.py
 
-echo "所有步骤完成！"
+echo "All steps completed!"
