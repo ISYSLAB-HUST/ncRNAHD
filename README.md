@@ -118,9 +118,14 @@ ncRNAHD/
 │   ├── whiten_params.npz
 │   └── sequence_index.json
 ├── results/                   # Search results (created during search)
-│   └── {sequence_id}.fasta    # Candidate sequences for each query
+│   └── Homologs_{sequence_id}.fasta    # Candidate sequences for each query
 └── examples/                  # Example query files
-    └── query.fasta
+    ├── batch_query.fasta
+    ├── 5kh8.fasta
+    └── Homologs_5kh8.a3m
+    
+
+
 ```
 
 ## Requirements
