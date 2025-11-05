@@ -55,7 +55,7 @@ python homolog_search.py \
 
 ## MSA Generation (Optional)
 
-### Option 1: Using rMSA (default)
+### Option 1: Lightweight rMSA Implementation (default)
 ```bash
 # Setup rMSA
 bash msa/setup_rmsa.sh
@@ -75,7 +75,7 @@ database/script/makeblastdb -in ../results/5kh8.fasta -parse_seqids -hash_index 
 perl rMSA.pl query.fasta -db1=../results/5kh8.fasta -cpu=16
 ```
 
-### Option 2: Using trRosettaRNA2
+### Option 2: Using trRosettaRNA2 script
 ```bash
 # Setup trRosettaRNA2
 bash msa/setup_trrosetta.sh
