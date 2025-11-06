@@ -42,16 +42,15 @@ python indexing/build_faiss_index.py
 
 ### Basic homolog search
 ```bash
+python homolog_search.py --query_fasta your_query.fasta --output_dir results
+
+# example1:
+python homolog_search.py --query_fasta examples/5kh8.fasta --output_dir results
+# example2:
 python homolog_search.py --query_fasta examples/batch_query.fasta --output_dir results
 ```
 
-### Custom parameters
-```bash
-python homolog_search.py \
-    --query_fasta your_query.fasta \
-    --output_dir your_results \
-    --topk 100000
-```
+
 
 ## MSA Generation (Optional)
 
