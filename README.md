@@ -69,12 +69,12 @@ database/script/makeblastdb -in ../results/Homologs_your_query.fasta -parse_seqi
 # 2. Generate MSA
 perl rMSA.pl your_query.fasta -db1=../results/Homologs_your_query.fasta -cpu=16
 # 3. A3m format (Optional)
-perl ${WORK_DIR}/bin/reformat.pl fas a3m -l 10000 your_query.afa your_query.a3m
+# perl ${WORK_DIR}/bin/reformat.pl fas a3m -l 10000 your_query.afa your_query.a3m
 
 # Complete example:
 database/script/makeblastdb -in ../results/Homologs_5kh8.fasta -parse_seqids -hash_index -dbtype nucl
 perl rMSA.pl 5kh8.fasta -db1=../results/Homologs_5kh8.fasta -cpu=16
-perl ${WORK_DIR}/bin/reformat.pl fas a3m -l 10000 5kh8.afa 5kh8.a3m
+# perl ${WORK_DIR}/bin/reformat.pl fas a3m -l 10000 5kh8.afa 5kh8.a3m
 ```
 
 ### Option 2: Using trRosettaRNA2 script
