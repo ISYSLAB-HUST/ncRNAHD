@@ -38,9 +38,18 @@ python embedding/generate_embeddings.py
 python indexing/build_faiss_index.py
 ```
 
+### 6. Setup custom rMSA
+```bash
+# Setup rMSA
+bash msa/setup_rmsa.sh
+
+# Replace with custom rMSA.pl
+bash msa/replace_rmsa.sh
+```
+
 ## Usage
 
-### Basic homolog search
+### Step 1:homolog search
 ```bash
 python homolog_search.py --query_fasta your_query.fasta --output_dir results
 
@@ -52,17 +61,9 @@ python homolog_search.py --query_fasta examples/batch_query.fasta --output_dir r
 
 
 
-## MSA Generation (Optional)
+### Step 2:MSA Generation
 
-### Option 1: Lightweight rMSA Implementation (default)
 ```bash
-# Setup rMSA
-bash msa/setup_rmsa.sh
-
-# Replace with custom rMSA.pl
-bash msa/replace_rmsa.sh
-
-# Generate MSA (replace "5kh8" with your actual sequence ID)
 cd rMSA
 # 1. Format the candidate database
 database/script/makeblastdb -in ../results/Homologs_your_query.fasta -parse_seqids -hash_index -dbtype nucl
@@ -77,18 +78,6 @@ perl rMSA.pl 5kh8.fasta -db1=../results/Homologs_5kh8.fasta -cpu=16
 # perl ${WORK_DIR}/bin/reformat.pl fas a3m -l 10000 5kh8.afa 5kh8.a3m
 ```
 
-### Option 2: Using trRosettaRNA2 script
-```bash
-# Setup trRosettaRNA2
-bash msa/setup_trrosetta.sh
-
-# Generate MSA using ncRNAHD candidates as database (adjust CPU cores as needed)
-cd trRosettaRNA2
-bash scripts/search_MSA.sh your_query.fasta output_msa_dir ../results/Homologs_your_query.fasta 16
-
-# Example: if your query sequence ID is "5kh8", using 16 CPU cores
-bash scripts/search_MSA.sh 5kh8.fasta msa_results ../results/Homologs_5kh8.fasta 16
-```
 
 ## File Structure
 
