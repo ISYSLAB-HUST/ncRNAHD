@@ -53,9 +53,9 @@ bash msa/replace_rmsa.sh
 ```bash
 python homolog_search.py --query_fasta your_query.fasta --output_dir results
 
-# example1:
+# Example1:
 python homolog_search.py --query_fasta examples/5kh8.fasta --output_dir results
-# example2:
+# Example2:
 python homolog_search.py --query_fasta examples/batch_query.fasta --output_dir results
 ```
 
